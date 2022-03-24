@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisielec</title>
+</head>
+<body onload="start()">
+ 
+    <h1>GRA WISIELEC</h1>
+    <img id="picture" src="..//Desktop/img/wisielec.jpg" height="500px"><br> 
+    Podaj Litere <input type="text" id="guess"> <button onclick="check()">Sprawdzam</button>
+    <span id="word"></span>
+   
+    <br>
+
+    <script>
+        
+        for( var Klawiatura = 65; Klawiatura < 90; Klawiatura++) 
+        {
+            function test(event)
+            {
+                console.log(event.srcElement.innerHTML)
+            }
+        let a = String.fromCharCode(Klawiatura)
+        let b = document.createElement('button');
+        b.innerHTML = a
+        b.addEventListener("click", test, true)
+        document.body.appendChild(b); 
+        }
+
+    </script>
+
+   <br>
+   
+   <script>
+        var word;
+        var mask;
+        var attempts;
+        function start() {
+            word = prompt("Podaj Slowo: ");
+            mask = Array(word.length);
+            mask.fill(false);
+            attempts = 0;
+            showWord();
+        }
+        function check() {
+            let guess = document.getElementById('guess').value;
+            let found = false;
+            for(let i = 0; i<word.length; i++) {
+                if(word[i] == guess) { //litera znajduje się w haśle
+                    mask[i] = true;
+                    found = true;
+                }
+                
+            }
+            if(!found) {
+                attempts++;
+                document.getElementById("picture").src = "img/"+attempts+".jpg";
+                if(attempts > 5) alert("Nie no takie proste a ty przegrales D:");
+            }
+            
+            showWord();
+        }
+        function showWord() {
+            let maskedWord = "";
+            for(let i = 0; i < word.length; i++) {
+                if(mask[i])
+                    maskedWord += word[i];
+                else
+                    maskedWord += "_";
+            }
+            //console.log(maskedWord);
+            document.getElementById("word").innerHTML = maskedWord;
+            if(mask.indexOf(false) == -1) 
+                alert("No naraszcie ZWYCIESTWOOOOO SIUUUUUUUUUUU :D");
+        }
+    </script>
+
+</body>
+</html>
